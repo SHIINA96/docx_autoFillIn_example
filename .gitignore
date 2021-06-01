@@ -1,3 +1,6 @@
 *.jpg
 *.docx
+*.gitignore
+*.DS_Store
+/.vscode
 /env
