@@ -24,6 +24,11 @@ for file in glob.glob("*.jpg"):
     i = i+1
 # print(picList)
 
+# 从照片中获取日期
+pict = Image.open(picList[0])
+exif_data = pict._getexif()
+picDate = exif_data[36867]
+
 name = input('输入文件名：')
 student_name = input('输入学生名字：')
 communication = int(input('思辨与交流能力: '))
@@ -32,9 +37,10 @@ co_operation = int(input('合作与互助能力：'))
 solvability = int(input('问题解决能力：'))
 thoughts = int(input('编程思维：'))
 lecturer_comments = input('输入教师评价：')
-year = input('输入年份：')
-month = input('输入月份：')
-day = input('输入日：')
+year = picDate[0:4]
+month = picDate[5:7]
+day = picDate[8:10]
+
 
 doc = DocxTemplate(name+'.docx') #加载模板文件
 document = Document(name+'.docx')
