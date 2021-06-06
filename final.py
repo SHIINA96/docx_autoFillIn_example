@@ -25,9 +25,14 @@ for file in glob.glob("*.jpg"):
 # print(picList)
 
 # 从照片中获取日期
-pict = Image.open(picList[0])
-exif_data = pict._getexif()
-picDate = exif_data[36867]
+try:
+    pict = Image.open(picList[0])
+    exif_data = pict._getexif()
+    picDate = exif_data[36867]
+except:
+    pict = Image.open(picList[1])
+    exif_data = pict._getexif()
+    picDate = exif_data[36867]
 
 name = input('输入文件名：')
 student_name = input('输入学生名字：')
@@ -68,6 +73,7 @@ docAddPicName = documentName
 docAddPic = Document(docAddPicName)
 paragraph = docAddPic.add_paragraph()
 # 检测图片是否需要旋转
+n = 0
 for picName in picList:
     try:
         image=Image.open(picName)
@@ -89,10 +95,16 @@ for picName in picList:
         image.save(picName)
         image.close()
 
+        # 添加照片到文件中
         run = paragraph.add_run()
         run.add_picture(picName, width=Cm(6))
         docAddPic.save(documentName)
         print('photo added!')
+
+        # 更改照片名
+        picNameStandard = year+month+day+'_'+str(n)+'.jpg'
+        os.rename(picName, picNameStandard)
+        n = n+1
 
     except (AttributeError, KeyError, IndexError):
         # cases: image don't have getexif
