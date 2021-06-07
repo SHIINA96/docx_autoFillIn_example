@@ -29,10 +29,12 @@ try:
     pict = Image.open(picList[0])
     exif_data = pict._getexif()
     picDate = exif_data[36867]
+    pict.close()
 except:
     pict = Image.open(picList[1])
     exif_data = pict._getexif()
     picDate = exif_data[36867]
+    pict.close()
 
 name = input('输入文件名：')
 student_name = input('输入学生名字：')
@@ -100,6 +102,7 @@ for picName in picList:
         run.add_picture(picName, width=Cm(6))
         docAddPic.save(documentName)
         print('photo added!')
+        image.close()
 
         # 更改照片名
         picNameStandard = year+month+day+'_'+str(n)+'.jpg'
