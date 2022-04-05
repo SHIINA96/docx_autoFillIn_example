@@ -1,3 +1,5 @@
 *.jpg
 *.docx
-/env
+/venv
+.DS_Store
+/.vscode

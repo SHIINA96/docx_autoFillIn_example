@@ -30,6 +30,9 @@ try:
     exif_data = pict._getexif()
     picDate = exif_data[36867]
     pict.close()
+except IndexError:
+    print('没有放入照片')
+    exit()
 except:
     pict = Image.open(picList[1])
     exif_data = pict._getexif()

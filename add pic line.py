@@ -1,3 +1,5 @@
+# 将 1.jpg 2.jpg 3.jpg 添加到 2.docx 中
+
 from docx.shared import Cm
 from docx import Document
 

@@ -1,6 +1,6 @@
 from PIL import Image
 
-picPath = 'IMG_4093.jpg'
+picPath = 'WechatIMG417.jpeg'
 pict = Image.open(picPath)
 exif_data = pict._getexif()
 picDate = exif_data[36867]

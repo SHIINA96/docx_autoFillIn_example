@@ -1,3 +1,5 @@
+# 将照片转为默认的角度
+
 from PIL import Image, ExifTags
 
 numbers = input('numbers of pictures: ')

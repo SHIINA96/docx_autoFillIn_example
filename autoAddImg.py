@@ -1,3 +1,5 @@
+# 自动添加多个照片到文件中
+
 from docx.shared import Cm
 from docx import Document
 from PIL import Image, ExifTags
@@ -12,7 +14,7 @@ picList = []
 
 # 从路径中查找 .jpg 文件
 os.chdir(dir_path)
-for file in glob.glob("*.jpg"):
+for file in glob.glob("*.PNG"):
     i=0
     picList.insert(i, file)
     print(file)
@@ -48,7 +50,7 @@ for picName in picList:
         image.close()
         # 添加图片到文档中
         run = paragraph.add_run()
-        run.add_picture(picName, width=Cm(4))
+        run.add_picture(picName, width=Cm(10))
         docAddPic.save('demo.docx')
         # print('photo added!')
 

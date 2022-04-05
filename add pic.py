@@ -1,3 +1,5 @@
+# 将图片添加到docx文件中
+
 from docx.shared import Cm
 from docx import Document
 from PIL import Image, ExifTags
@@ -11,7 +13,7 @@ paragraph = docAddPic.add_paragraph()
 for i in range(int(picNumbers)):
     picName = input('name of pictures: ')
     try:
-        image=Image.open(picName+'.jpg')
+        image=Image.open(picName+'.png')
 
         for orientation in ExifTags.TAGS.keys():
             if ExifTags.TAGS[orientation]=='Orientation':
@@ -30,11 +32,11 @@ for i in range(int(picNumbers)):
         except:
             print('no need to process!')
 
-        image.save(picName+'.jpg')
+        image.save(picName+'.png')
         image.close()
 
         run = paragraph.add_run()
-        run.add_picture(picName+'.jpg', width=Cm(4))
+        run.add_picture(picName+'.png', width=Cm(6))
         docAddPic.save('demo.docx')
         print('photo added!')
 

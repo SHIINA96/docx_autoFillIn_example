@@ -4,4 +4,6 @@ filelock==3.0.12
 six==1.15.0
 virtualenv==20.4.3
 python-docx
+docxtpl
+docx2pdf
 pillow
