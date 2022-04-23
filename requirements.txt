@@ -6,4 +6,4 @@ virtualenv==20.4.3
 python-docx
 docxtpl
 docx2pdf
-pillow
+
