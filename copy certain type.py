@@ -1,4 +1,4 @@
-# 遍历文件夹并复制特定类型的文件并添加到压缩包中
+# 遍历文件夹并复制特定类型(pdf)的文件并添加到压缩包中
 
 import os, shutil, zipfile
 import tkinter as tk
@@ -22,9 +22,22 @@ def CrossOver(dir,fl):
             CrossOver(newdir,fl)
     return fl
 
+# 压缩文件
+def zipdirs(dir_list):
+    os.chdir(original_folder_path)
+    zip_file = 'test.zip' # 压缩后的名字
+
+    zip = zipfile.ZipFile(zip_file, 'w', zipfile.ZIP_DEFLATED)
+ 
+    for item in dir_list:
+        head_tail = os.path.split(item) # 将item中的地址，拆分为地址与文件名
+        zip.write(head_tail[1]) # tuple中第二个元素为文件名
+    zip.close()
+
+
+
 filelist=[]
 output=CrossOver(original_folder_path, filelist)   # 执行函数，输出结果
-# print(output)
 
 # 复制文件到选择目录
 for file in output:
@@ -34,17 +47,4 @@ for file in output:
     except shutil.SameFileError:
         print("存在相同文件！")
 
-
-def zipdirs(dir_list):
-    os.chdir(original_folder_path)
-    zip_file = 'test.zip' # 压缩后的名字
-
-    zip = zipfile.ZipFile(zip_file, 'w', zipfile.ZIP_DEFLATED)
- 
-    for item in dir_list:
-        # print(item)
-        (path_name,file_name) = os.path.split(output[0])
-        zip.write(file_name)
-    zip.close()
-
-zipdirs(output)
+zipdirs(output) # 压缩
