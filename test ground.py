@@ -1,7 +1,7 @@
 import os, re, string
 
 # 实验 os.path.split 的使用方法
-path = 'C:/Users/xxx/Desktop/新建文件夹\\123\\aa123.pdf'
+path = 'C:/Users/xxx/Desktop/新建文件夹/12/aa123.pdf'
 
 head_tail = os.path.split(path)
 
@@ -45,7 +45,19 @@ if head_tail[1].isdigit():
     print('start with digit')
 else:
     print('not start with digit')
-    """"
+""""
 输出结果
 not start with digit
 """
+
+
+# 将文件地址拆分并获取文件夹名称
+head_tail = os.path.split(path)
+file_dir = head_tail[0].split('/')
+print(file_dir)
+print(file_dir[-1])
+""""
+['C:', 'Users', 'xxx', 'Desktop', '新建文件夹', '12']
+12
+"""
+

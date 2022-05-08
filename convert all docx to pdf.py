@@ -17,7 +17,8 @@ def CrossOver(dir,fl):
             if os.path.splitext(path)[1]==".docx":  # 判断文件扩展名是否为“.docx”
                 try:
                     convert(path)
-                    print(path + 'convert complete')
+                    time.sleep(1)
+                    print(path + ' convert complete')
                 except:
                     pass
                 fl.append(i)
