@@ -61,3 +61,39 @@ print(file_dir[-1])
 12
 """
 
+
+
+# 将文件复制到本地网络的NAS中
+import os, shutil
+import tkinter as tk
+from tkinter import filedialog
+
+root = tk.Tk()
+root.withdraw()
+folder_path = filedialog.askdirectory()
+
+nas_student_folder_path = "//ikesi-server/Public/8.学员课后资料/"   # 此处为NAS文件夹的路径，注意使用'/'为路径中的分隔符，否则会报错
+
+def traversal_folder(dir):  # 获取文件夹中的全部文件夹
+    folder_list = []
+    for i in os.listdir(dir):   # 遍历文件夹内的目录
+        path = os.path.join(dir,i)  
+        if os.path.isdir(path): # 判断目录是否为路径
+            folder_list.append(path)
+    return folder_list
+
+output = traversal_folder(folder_path)  # 获取选择文件夹中的全部路径
+
+folder1_path = output[0]
+print(folder1_path)
+head_tail = os.path.split(folder1_path)
+folder1_name = head_tail[1].split('\\')
+print(folder1_name[0])
+
+
+for file in os.listdir(folder1_path):
+    destination_path = os.path.join(nas_student_folder_path,folder1_name[0])
+    if os.path.splitext(file)[1]==".jpg":
+        # print(file)
+        destination_path = os.path.join(destination_path, '照片')   # 在学生姓名后再添加一级目录
+        shutil.copy(os.path.join(folder1_path,file), destination_path)
