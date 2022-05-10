@@ -97,3 +97,15 @@ for file in os.listdir(folder1_path):
         # print(file)
         destination_path = os.path.join(destination_path, '照片')   # 在学生姓名后再添加一级目录
         shutil.copy(os.path.join(folder1_path,file), destination_path)
+
+
+# 修改文件名
+path = "C:/Users/巴图/Desktop/新建文件夹/高梓函/20220508_1.jpg"
+head_tail = os.path.split(path)
+if head_tail[1].endswith('.jpg'):   #当文件名以.txt后缀结尾时
+    old_name = head_tail[1]
+    new_name=old_name.replace('.jpg','_1.jpg')   #将原来名字里的‘.txt’替换为‘-test.txt’,相当于加个后缀了
+    os.rename(os.path.join(head_tail[0],old_name),os.path.join(head_tail[0],new_name))
+
+# 文件是否存在
+os.path.exists("C:/Users/巴图/Desktop/新建文件夹/高梓函/20220508_1.jpg")
