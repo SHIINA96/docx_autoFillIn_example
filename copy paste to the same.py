@@ -1,7 +1,6 @@
 # 将文件复制粘贴到同名文件夹内
 
 import os, shutil
-from telnetlib import NEW_ENVIRON
 import tkinter as tk
 from tkinter import filedialog
 
@@ -51,7 +50,7 @@ for path in output:
     folder_name = head_tail[1].split('\\')
 
     for file in os.listdir(path):   # 遍历文件夹中的文件
-        if os.path.splitext(file)[1]!=".docx":  # 排除word文件
+        if os.path.splitext(file)[1]!=".docx" and os.path.splitext(file)[1]!=".docm":  # 排除word文件
             destination_path = os.path.join(nas_student_folder_path,folder_name[0])
             file_path = os.path.join(path,file)
             if os.path.splitext(file)[1]==".jpg":
@@ -67,5 +66,9 @@ for path in output:
                 pass
 
             new_file = exist_and_rename(destination_path, path, file)
-            shutil.copy(new_file, destination_path)
-            print(file + ' copied')
+
+            try:
+                shutil.copy(new_file, destination_path)
+                print(file + ' copied')
+            except FileNotFoundError:
+                print('学生名错误，', folder_name[0], '不存在')
