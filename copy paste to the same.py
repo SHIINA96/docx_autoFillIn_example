@@ -69,6 +69,6 @@ for path in output:
 
             try:
                 shutil.copy(new_file, destination_path)
-                print(file + ' copied')
+                print(folder_name + ' ' + file + ' copied')
             except FileNotFoundError:
                 print('学生名错误，', folder_name[0], '不存在')
