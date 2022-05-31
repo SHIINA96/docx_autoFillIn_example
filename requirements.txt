@@ -6,4 +6,5 @@ virtualenv==20.4.3
 python-docx
 docxtpl
 docx2pdf
-
+pyzmq==19.0.2
+openpyxl

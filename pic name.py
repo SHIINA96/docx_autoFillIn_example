@@ -1,4 +1,4 @@
-# 修改照片的名字为拍视的日期
+# 修改照片的名字为拍摄的日期
 
 import os
 from PIL import Image

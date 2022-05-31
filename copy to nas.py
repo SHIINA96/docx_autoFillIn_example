@@ -5,7 +5,10 @@ import tkinter as tk
 from tkinter import filedialog
 
 # nas_student_folder_path = "//ikesi-server/Public/14.校外课程影视资料/2022 春 博苑澳森/启蒙2班/"
-nas_student_folder_path = "//ikesi-server/Public/14.校外课程影视资料/2022 春 南开小学/三年四班/"
+# nas_student_folder_path = "//ikesi-server/图图/学生/07 幼儿园/2022春博苑澳森/"
+
+# nas_student_folder_path = "//ikesi-server/Public/14.校外课程影视资料/2022 春 南开小学/三年四班/"
+# nas_student_folder_path = "//ikesi-server/图图/学生/08 小学/南开"
 
 root = tk.Tk()
 root.withdraw()
