@@ -1,5 +1,7 @@
 *.jpg
 *.docx
+*.xlsx
+*.ics
 /venv
 .DS_Store
 /.vscode
