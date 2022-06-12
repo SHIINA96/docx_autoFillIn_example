@@ -8,3 +8,6 @@ docxtpl
 docx2pdf
 pyzmq==19.0.2
 openpyxl
+ics
+requests
+requests_testadapter

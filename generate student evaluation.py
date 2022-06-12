@@ -1,3 +1,7 @@
+# 未完成
+
+# 从指定的excel表格中获取内容，并生成学生评价模板
+
 from openpyxl import load_workbook
 from docxtpl import DocxTemplate, Listing
 
