@@ -3,14 +3,19 @@
 from ics import Calendar
 from dateutil.relativedelta import relativedelta
 from openpyxl import load_workbook
-import requests, datetime
+import requests, datetime, os
 
 url = 'https://outlook.live.com/owa/calendar/3d1bd554-c7f0-49e2-996b-2cf4a6b39fa7/685e27f6-3554-4af1-b07c-4d785a347cc5/cid-28689F54F556F71F/calendar.ics'
 c = Calendar(requests.get(url).text)
 # c = Calendar(r.text)  # 使用本地ics文件访问
 
-start_date = datetime.date(2022,6,1)
+now = datetime.datetime.now()
+year = now.year
+month = now.month
+start_date = datetime.date(2022,month,1)
 end_date = start_date + relativedelta(months=1)
+
+new_file_name = '图图'+str(year)+'年'+str(month)+'月课时统计.xlsx'
 
 e = list(c.timeline)    # 日历中的全部事件
 
@@ -31,7 +36,7 @@ for calender_event in e:    # 将事件添加到class_in_total中
         except IndexError:
             pass
 
-    class_in_total.append(current_class)
+        class_in_total.append(current_class)
 class_in_total.sort()
 print('日历中共有'+str(len(class_in_total))+'项日程')
 
@@ -70,3 +75,5 @@ def insert_course_information(calender_list_item, course):  # 将内容添加至
 for item in class_in_total:
     insert_course_information(item, item[0])
 print('已导入'+str(len(class_in_total))+'项日程')
+
+os.rename('教师课时统计表模板.xlsx', new_file_name)
