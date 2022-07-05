@@ -11,3 +11,4 @@ openpyxl
 ics
 requests
 requests_testadapter
+pyInstaller
