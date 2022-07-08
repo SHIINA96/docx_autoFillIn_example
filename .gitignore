@@ -3,6 +3,7 @@
 *.xlsx
 *.ics
 .DS_Store
+.spec
 /venv
 /build
 /dist
