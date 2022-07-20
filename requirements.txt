@@ -12,3 +12,4 @@ ics
 requests
 requests_testadapter
 pyInstaller
+easyocr
