@@ -2,6 +2,7 @@ import os, easyocr, datetime, re, tkinter as tk
 from tkinter import filedialog
 from openpyxl.workbook import Workbook
 from openpyxl.styles import Font, PatternFill, Border, Side, Alignment
+from openpyxl.worksheet.datavalidation import DataValidation
 
 
 now = datetime.datetime.now()
@@ -62,6 +63,14 @@ ws = wb.active
 align = Alignment(horizontal='center', vertical='center')
 border = Border(left=Side(border_style='thin', color='000000'), right=Side(border_style='thin', color='000000'), top=Side(border_style='thin', color='000000'), bottom=Side(border_style='thin', color='000000'))
 
+# 设置下拉菜单样式
+dv_section = DataValidation(type="list", formula1='"科学启蒙,科学探究,工程实践,乐高,玛塔,程小奔,Scratch,Python,C++,假期营,校外幼儿园课,校外小学课,活动,教务行政用品,其他"', allow_blank=True)
+dv_employee = DataValidation(type="list", formula1='"靳朴鈜,刘碧堃,王伟杰,杨敏,胡婷,徐敏,杨雪婷,李佳敏,巴图,张鹏,其他人"', allow_blank=True)
+dv_payment_methods = DataValidation(type="list", formula1='"微信,支付宝,现金,银行卡,其他"', allow_blank=True)
+ws.add_data_validation(dv_section)
+ws.add_data_validation(dv_employee)
+ws.add_data_validation(dv_payment_methods)
+
 # 设置标题与表头
 a1 = ws['A1']
 a1.value = '运营成本记录'
@@ -97,6 +106,11 @@ def add_info(row,col,value):
 for y in range(3,64):
     for x in range(1,14):
         add_info(y,x,'')
+
+# 添加下拉菜单
+dv_section.add('C1:C1048576')
+dv_employee.add('J1:J1048576')
+dv_payment_methods.add('K1:K1048576')
 
 i65 = ws['I65']
 i65.value = '=SUM(I3:I64)'
@@ -185,7 +199,9 @@ for file in f_path:
         # 换行
         row += 1
 
-wb.save(new_file_name)
+location = os.path.split(f_path[0])[0]
+wb.save(os.path.join(location, new_file_name))
+
 
 print('无法处理的图片：', end='')
 bad_pic_list = (set(f_path)-set(good_pic_list))

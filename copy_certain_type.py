@@ -10,6 +10,7 @@ root = tk.Tk()
 root.withdraw()
 original_folder_path = filedialog.askdirectory()
 os.chdir(original_folder_path) # 变更程序目录
+destination_path = "//ikesi-server/图图/临时课评文件/"
 
 
 def CrossOver(dir,fl, file_type):
@@ -38,11 +39,11 @@ def zipdirs(dir_list):
     print("压缩完成！")
 
 
-def copy_to_parent_folder(parent_folder_path, subfolder_list):
-    for file in subfolder_list:
+def copy_to_destination_folder(destination_folder_path, folder_list):
+    for file in folder_list:
         try:
-            shutil.copy(file, parent_folder_path)
-            # print(file + ' copied')
+            shutil.copy(file, destination_folder_path)
+            print(file + ' copied')
         except shutil.SameFileError:
             print("存在相同文件！")
 
@@ -50,8 +51,10 @@ def copy_to_parent_folder(parent_folder_path, subfolder_list):
 
 filelist=[]
 file_type = ['.MOV', '.pdf']
-output=CrossOver(original_folder_path, filelist, file_type)   # 执行函数，输出结果
+output=CrossOver(original_folder_path, filelist, file_type)   # 获得文件夹内全部符合条件的文件
 
-# copy_to_parent_folder(original_folder_path, output) # 复制文件到父文件夹
+copy_to_destination_folder(destination_path, output)    # 复制文件到目标文件夹
 
-zipdirs(output) # 压缩
+# zipdirs(output) # 压缩
+
+input('Press Enter to exit…')

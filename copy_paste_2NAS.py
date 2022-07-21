@@ -72,3 +72,5 @@ for path in output:
                 print(folder_name[0] + ' ' + file + ' copied')
             except FileNotFoundError:
                 print('学生名错误，', folder_name[0], '不存在')
+
+input('Press Enter to exit…')

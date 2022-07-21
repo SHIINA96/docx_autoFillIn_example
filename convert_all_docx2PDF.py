@@ -31,5 +31,6 @@ def CrossOver(dir,fl):
 directory=folder_path  #文件夹名称
 filelist=[]
 output=CrossOver(directory,filelist)   # 执行函数，输出结果
-# for i in output:
-#     print(i)
+
+
+input('Press Enter to exit…')

@@ -11,3 +11,7 @@ for file in os.listdir(path):
         # print(os.path.splitext(pic_path))
         new_name = os.path.splitext(pic_path)[0] + '.jpg'
         os.replace(pic_path,new_name)
+        print('重命名',pic_path,'为',new_name)
+
+
+input('Press Enter to exit…')
