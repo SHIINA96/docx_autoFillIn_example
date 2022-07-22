@@ -12,7 +12,7 @@ c = Calendar(requests.get(url).text)
 now = datetime.datetime.now()
 year = now.year
 month = now.month
-start_date = datetime.date(2022,month,1)
+start_date = datetime.date(year,month,1)
 end_date = start_date + relativedelta(months=1)
 
 new_file_name = '图图'+str(year)+'年'+str(month)+'月课时统计.xlsx'
@@ -40,10 +40,10 @@ for calender_event in e:    # 将事件添加到class_in_total中
 class_in_total.sort()
 print('日历中共有'+str(len(class_in_total))+'项日程')
 
-wb = load_workbook(filename = '教师课时统计表模板.xlsx')
+wb = load_workbook(filename = 'assest/教师课时统计表模板.xlsx')
 ws = wb.active
 
-cols = {'启蒙':2, '玛塔':5, '程小奔':5, '探究':8, '工程':11, 'Scratch':14, 'Python':14, '南开':17, '普林斯顿':17, '博苑澳森':17}
+cols = {'启蒙':2, '玛塔':5, '程小奔':5, '探究':8, '工程':11, 'Scratch':14, 'Python':14, '南开':17, '普林斯顿':17, '博苑澳森':17, '考古营':24, '医学营':24}
 
 def insert_course_information(calender_list_item, course):  # 将内容添加至excel中
     time_value = datetime.datetime.strptime(calender_list_item[1],'%Y-%m-%d')   # 整理时间格式
@@ -56,7 +56,10 @@ def insert_course_information(calender_list_item, course):  # 将内容添加至
             row += 1
             if ws.cell(row=row, column=col).value == None:
                 break
-        if course in ('南开','普林斯顿','博苑澳森'):    # 课程格式不同
+
+        if course not in cols.keys():   # 跳过日历中的其他事项
+            print('未添加 ',time_value,course)
+        elif course in ('南开','普林斯顿','博苑澳森'):    # 课程格式不同
             ws.cell(row=row, column=col, value=course)
             ws.cell(row=row, column=col+1, value=time_value)
             ws.cell(row=row, column=col+2, value=calender_list_item[2])
