@@ -13,3 +13,4 @@ requests
 requests_testadapter
 pyInstaller
 easyocr
+pywin32
