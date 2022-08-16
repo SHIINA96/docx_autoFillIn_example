@@ -23,7 +23,7 @@ e = list(c.timeline)    # 日历中的全部事件
 class_in_total = []
 for calender_event in e:    # 将事件添加到class_in_total中
     current_class = []
-    if calender_event.begin.date() > start_date and calender_event.begin.date() < end_date: # 筛选指定日期内的事件
+    if calender_event.begin.date() >= start_date and calender_event.begin.date() < end_date: # 筛选指定日期内的事件
         try:
             c1ass = calender_event.name.split(' ')[0]
             student = len(calender_event.name.split(' ')[1:])
@@ -49,31 +49,33 @@ def insert_course_information(calender_list_item, course):  # 将内容添加至
     time_value = datetime.datetime.strptime(calender_list_item[1],'%Y-%m-%d')   # 整理时间格式
     time_value = time_value.strftime('%m月%d日')
     if calender_list_item[0] == course:
-        row = 5
-        col = cols[course]
-        while ws.cell(row=row, column=col).value != None :  # 判断该单元格是否为空
-            # print(str(row) + ' ' +str(col) + ' is not empty')
-            row += 1
-            if ws.cell(row=row, column=col).value == None:
-                break
-
+        row = 5     # 固定在第5行开始
         if course not in cols.keys():   # 跳过日历中的其他事项
             print('未添加 ',time_value,course)
-        elif course in ('南开','普林斯顿','博苑澳森'):    # 课程格式不同
-            ws.cell(row=row, column=col, value=course)
-            ws.cell(row=row, column=col+1, value=time_value)
-            ws.cell(row=row, column=col+2, value=calender_list_item[2])
-            ws.cell(row=row, column=col+3, value=calender_list_item[3])
-            print('已添加',time_value,course,calender_list_item[3],'人')
-            row += 1
-            wb.save(filename='教师课时统计表模板.xlsx')
         else:
-            ws.cell(row=row, column=col, value=time_value)
-            ws.cell(row=row, column=col+1, value=calender_list_item[2])
-            ws.cell(row=row, column=col+2, value=calender_list_item[3])
-            print('已添加',time_value,course,calender_list_item[3],'人')
-            row += 1
-            wb.save(filename='教师课时统计表模板.xlsx')
+            col = cols[course]  # 从cols中获取课程所在列
+
+            while ws.cell(row=row, column=col).value != None :  # 判断该单元格是否为空
+                # print(str(row) + ' ' +str(col) + ' is not empty')
+                row += 1
+                if ws.cell(row=row, column=col).value == None:
+                    break
+
+            if course in ('南开','普林斯顿','博苑澳森'):    # 课程格式不同
+                ws.cell(row=row, column=col, value=course)
+                ws.cell(row=row, column=col+1, value=time_value)
+                ws.cell(row=row, column=col+2, value=calender_list_item[2])
+                ws.cell(row=row, column=col+3, value=calender_list_item[3])
+                print('已添加',time_value,course,calender_list_item[3],'人')
+                row += 1
+                wb.save(filename='教师课时统计表模板.xlsx')
+            else:
+                ws.cell(row=row, column=col, value=time_value)
+                ws.cell(row=row, column=col+1, value=calender_list_item[2])
+                ws.cell(row=row, column=col+2, value=calender_list_item[3])
+                print('已添加',time_value,course,calender_list_item[3],'人')
+                row += 1
+                wb.save(filename='教师课时统计表模板.xlsx')
 
 for item in class_in_total:
     insert_course_information(item, item[0])
