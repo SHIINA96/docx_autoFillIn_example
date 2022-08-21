@@ -5,10 +5,6 @@ from openpyxl.styles import Font, PatternFill, Border, Side, Alignment
 from openpyxl.worksheet.datavalidation import DataValidation
 
 
-now = datetime.datetime.now()
-month = now.month
-new_file_name = '图图'+str(month)+'月报销表单.xlsx'
-
 # 处理图片信息的函数
 def get_transaction_information(info_list):
     pattern_quanitiy_type1 = re.compile('x+')
@@ -118,7 +114,7 @@ i65.font = Font(name=u'黑体', size=12, bold=True)
 i65.alignment = align
 i65.border = border
 i65.fill=PatternFill('solid',fgColor='FFFF00')
-# 完成表格的设计
+
     
 # 选择交易截图
 root = tk.Tk()
@@ -133,6 +129,7 @@ reader = easyocr.Reader(['ch_sim','en'], gpu=False)
 row = 3
 for file in f_path:
     result = reader.readtext(file, detail = 0)
+    print('正在解析：' + file)
     print(result)
     a = get_transaction_information(result)
     if a == None:
@@ -199,11 +196,23 @@ for file in f_path:
         # 换行
         row += 1
 
+
+user_name = input('请输入姓名：')
+now = datetime.datetime.now()
+month = now.month
+new_file_name = user_name + str(month) + '月报销表单.xlsx'
+# new_file_name = '图图' + str(month) + '月报销表单.xlsx'
 location = os.path.split(f_path[0])[0]
 wb.save(os.path.join(location, new_file_name))
 
-
-print('无法处理的图片：', end='')
+    
 bad_pic_list = (set(f_path)-set(good_pic_list))
-for pic in bad_pic_list:
-    print(os.path.split(pic)[1], end='  ')
+if len(bad_pic_list) == 0:
+    print('全部图片处理完成')
+else:
+    print('无法处理的图片：', end='')
+    for pic in bad_pic_list:
+        print(os.path.split(pic)[1], end='  ')
+
+    
+input('Press Enter to exit…')
